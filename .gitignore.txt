@@ -1,7 +1,6 @@
-node_modules
-dist
-build
-.gradle
-.idea
+node_modules/
+dist/
+build/
+.gradle/
+.idea/
 *.log
-local.properties
