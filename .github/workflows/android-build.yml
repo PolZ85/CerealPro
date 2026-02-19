@@ -10,37 +10,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Clonar repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2️⃣ Node 20
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
+      # 3️⃣ Instalar dependencias
       - name: Install dependencies
         run: npm install
 
+      # 4️⃣ Build web (Vite / React / etc)
       - name: Build project
-        run: npm run build --if-present
+        run: npm run build
 
+      # 5️⃣ Sync Capacitor
       - name: Sync Capacitor
         run: npx cap sync android
 
+      # 6️⃣ Java 21 (IMPORTANTE)
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 21
 
+      # 7️⃣ Build APK Debug
       - name: Build Debug APK
         run: |
           cd android
-          chmod +x gradlew
-          ./gradlew assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          c
